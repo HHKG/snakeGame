@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="content-type" content="text/html"/>
+		<meta name="keywords" content="贪吃蛇,小游戏" />
+		<meta name="description" content="贪吃蛇,小游戏" />
+		<meta name="author" content="KG" />
+		<link rel="shortcut icon" href="favicon.ico" >
+		<!-- <link rel="icon" href="./favicon.icon"/> -->
+		<title>day_one(贪吃蛇小游戏)</title>
+	</head>
+	<style>
+		.container{
+			margin: 0 auto;
+			width: 500px;
+			height: 500px;
+			border: 10px solid darkred;
+		}
+		.snake{
+			width: 20px;
+			height: 10px;
+			background-color:#ff5000;
+			border-radius: 11px;
+			display: inline-block;
+		}
+		.btns{
+			width: 186px;
+			margin: 0 auto;
+			border: 1px solid red;
+		}
+		.btns button{
+			background-color: #8B0000;
+			color: #fff;
+		}
+	</style>
+	<body>
+		<div class="container">
+			
+			<div class="snake">
+				
+			</div>
+		</div>
+		<div class="btns">
+			<button onclick="turnLeft()">向左</button>
+			<button onclick="turnRight()">向右</button>
+			<button onclick="turnUp()">向上</button>
+			<button onclick="turnDown()">向下</button>
+		</div>
+		<script>
+				var conObj=document.getElementsByClassName('container');
+				var snakeObj=document.getElementsByClassName('snake')[0];
+				conObj[0].addEventListener('mousemove',function(e){
+					console.log(e.offsetX,e.offsetY);
+				})
+				// 初始位置
+				var ml=0;
+				// 向右走定时器
+				var timerRight=setInterval(function(){
+					ml+=10;
+					snakeObj.style.marginLeft= ml+'px';
+					if(ml>=480){
+						alert('Game is over');
+						clearInterval(timerRight);
+					}
+				},1000);
+				
+				// 向左走定时器
+				var timerLeft=setInterval(function(){
+					ml-=10;
+					snakeObj.style.marginLeft= ml+'px';
+					if(1<=ml){
+						alert('Game is over');
+						clearInterval(timerLeft);
+					}
+				},1000);
+				
+				// 向上走定时器
+				var timerUp=setInterval(function(){
+					ml-=10;
+					snakeObj.style.marginTop= ml+'px';
+					if(1<=ml){
+						alert('Game is over');
+						clearInterval(timerUp);
+					}
+				},1000);
+				
+				// 向下走定时器
+				var timerDown=setInterval(function(){
+					ml+=10;
+					snakeObj.style.marginTop= ml+'px';
+					if(ml>=480){
+						alert('Game is over');
+						clearInterval(timerDown);
+					}
+				},1000);
+				
+				
+				function turnDown(){
+					snakeObj.style.width='10px';
+					snakeObj.style.height='20px';
+					snakeObj.style.marginTop=snakeObj.style.marginTop+'10px';
+					setInterval(timerDown);
+					clearInterval(timerLeft);
+					clearInterval(timerUp);
+					clearInterval(timerRight);
+					console.log('向下走')
+					
+				}
+				function turnLeft(){
+					snakeObj.style.width='20px';
+					snakeObj.style.height='10px';
+					setInterval(timerLeft);
+					clearInterval(timerDown);
+					clearInterval(timerUp);
+					clearInterval(timerRight);
+					console.log('向左走');
+					
+				}
+				function turnRight(){
+					snakeObj.style.width='20px';
+					snakeObj.style.height='10px';
+					setInterval(timerRight);
+					clearInterval(timerLeft);
+					clearInterval(timerUp);
+					clearInterval(timerDown);
+					console.log('向右走')
+					
+				}
+				function turnUp(){
+					snakeObj.style.width='10px';
+					snakeObj.style.height='20px';
+					snakeObj.style.marginTop=snakeObj.style.marginTop-'10px';
+					setInterval(timerUp);
+					clearInterval(timerLeft);
+					clearInterval(timerDown);
+					clearInterval(timerRight);
+					console.log('向右走');
+				}
+		</script>
+	</body>
+</html>
