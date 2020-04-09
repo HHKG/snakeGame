@@ -16,6 +16,7 @@
 			width: 500px;
 			height: 500px;
 			border: 10px solid darkred;
+			position: relative;
 		}
 		.snake{
 			width: 20px;
@@ -33,13 +34,17 @@
 			background-color: #8B0000;
 			color: #fff;
 		}
+		#rectSnake{
+			width: 10px;
+			height: 20px;
+			border-radius: 21px;
+			background: #FF0000;
+			position: absolute;
+		}
 	</style>
 	<body>
 		<div class="container">
-			
-			<div class="snake">
-				
-			</div>
+			<div class="snake"></div>
 		</div>
 		<div class="btns">
 			<button onclick="turnLeft()">向左</button>
@@ -48,94 +53,183 @@
 			<button onclick="turnDown()">向下</button>
 		</div>
 		<script>
+			// Math：数学对象，提供对数据的数学计算。
+			// 1.Math.random(); 返回为0-1间的一个随机数(包括0,不包括1)
+			// 2.Math.round(num); 函数结果为num四舍五入后的整数，参数num为一个数值。
+			// 3.Math.floor(num); //向下取整；函数结果为num的整数部分，参数num为一个数值。
+			// 4.Math.ceil(num);  //向上取整；函数结果返回大于等于n的最小整数。
+			// 用Math.ceil(Math.random()*10);时，主要获取1到10的随机整数，取0的几率极小。
+			// 用Math.round(n); 返回n四舍五入后的整数的值。
+			// 用Math.round(Math.random());可均衡获取0到1的随机整数。
+			// 用Math.round(Math.random()*10);时，可基本均衡获取0到10的随机整数，其中获取最小值0和最大值10的几率少一半。
+			// 用Math.floor(n); 返回小于等于n的最大整数。
+			// 用Math.floor(Math.random()*10);时，可均衡获取0到9的随机整数。
+			
+			
 				var conObj=document.getElementsByClassName('container');
 				var snakeObj=document.getElementsByClassName('snake')[0];
-				conObj[0].addEventListener('mousemove',function(e){
-					console.log(e.offsetX,e.offsetY);
-				})
+				// conObj[0].addEventListener('mousemove',function(e){
+				// 	console.log(e.offsetX,e.offsetY);
+				// })
 				// 初始位置
-				var ml=0;
+				var IntervalLeft,	
+				IntervalDown,
+				IntervalRight,
+				IntervalUp;
 				// 向右走定时器
-				var timerRight=setInterval(function(){
+				var ml=0;
+				var mt=0;
+				var mtop=Math.ceil(Math.random()*500);   //随机小方块的y轴
+				var mleft=Math.ceil(Math.random()*500);  //随机小方块的X轴
+				var snakeW=20;                          //蛇的初始宽度
+				
+				var timerRight=function(){
+					let lastElement=conObj[0].lastElementChild;
+					if(!lastElement.id){
+						console.log('小方块即将出现')
+						// 出现小方块
+						makeRect();
+					}
+					// 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
+					if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
+						snakeW+=20
+						conObj[0].removeChild(conObj[0].lastElementChild);
+					}
 					ml+=10;
-					snakeObj.style.marginLeft= ml+'px';
+					snakeObj.style.marginLeft=ml+'px';
 					if(ml>=480){
 						alert('Game is over');
-						clearInterval(timerRight);
+						clearInterval(IntervalRight);
 					}
-				},1000);
+				}
 				
 				// 向左走定时器
-				var timerLeft=setInterval(function(){
-					ml-=10;
-					snakeObj.style.marginLeft= ml+'px';
-					if(1<=ml){
-						alert('Game is over');
-						clearInterval(timerLeft);
+				var timerLeft=function(){
+					let lastElement=conObj[0].lastElementChild;
+					if(!lastElement.id){
+						console.log('小方块即将出现')
+						// 出现小方块
+						makeRect();
 					}
-				},1000);
+					// 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
+					if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
+						snakeW+=20
+						conObj[0].removeChild(conObj[0].lastElementChild);
+					}
+					ml-=10
+					snakeObj.style.marginLeft=ml+'px';
+					if(1>=ml){
+						alert('Game is over');
+						clearInterval(IntervalLeft);
+					}
+				}
 				
 				// 向上走定时器
-				var timerUp=setInterval(function(){
-					ml-=10;
-					snakeObj.style.marginTop= ml+'px';
-					if(1<=ml){
-						alert('Game is over');
-						clearInterval(timerUp);
+				var timerUp=function(){
+					let lastElement=conObj[0].lastElementChild;
+					if(!lastElement.id){
+						console.log('小方块即将出现')
+						// 出现小方块
+						makeRect();
 					}
-				},1000);
+					// 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
+					if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
+						snakeW+=20
+						conObj[0].removeChild(conObj[0].lastElementChild);
+					}
+					mt-=10;
+					snakeObj.style.marginTop=mt+'px';
+					if(1>=mt){
+						alert('Game is over');
+						clearInterval(IntervalUp);
+					}
+				}
 				
 				// 向下走定时器
-				var timerDown=setInterval(function(){
-					ml+=10;
-					snakeObj.style.marginTop= ml+'px';
-					if(ml>=480){
-						alert('Game is over');
-						clearInterval(timerDown);
+				var timerDown=function(){
+					let lastElement=conObj[0].lastElementChild;
+					if(!lastElement.id){
+						console.log('小方块即将出现')
+						// 出现小方块
+						makeRect();
 					}
-				},1000);
+					// 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
+					if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
+						snakeW+=20
+						conObj[0].removeChild(conObj[0].lastElementChild);
+					}
+					
+					mt+=10;
+					snakeObj.style.marginTop=mt+'px';
+					if(mt>=480){
+						alert('Game is over');
+						clearInterval(IntervalDown);
+					}
+				}
 				
+				
+				// 生成一个小方块
+				var makeRect=function(){
+					console.log('构建模块成功')
+					var rect=document.createElement('div');
+					rect.setAttribute('id','rectSnake');
+					rect.setAttribute('style','top:'+mtop+'px'+';left:'+mleft+'px')
+					console.log(mtop,mleft);
+					conObj[0].appendChild(rect);
+				}
+				
+				//吞吃小方块（分析：在移动的过程中，触及到某个方块的位置，清除这个模块，并把它添加在自己的后面）
+				//如果，两个方块的x轴和y轴都相等，那么把这个方块加在移动模块后面
+				
+				// 清除小方块
+				function clearRect(){
+					
+				}
+				
+				// 往自身添加小方块
+				function addRectSelf(){
+					let snakeX=snakeObj.style.marginTop;
+					let snakeY=snakeObj.style.marginLeft;
+					let rectObj=document.getElementById('rectSnake');
+				}
 				
 				function turnDown(){
 					snakeObj.style.width='10px';
-					snakeObj.style.height='20px';
-					snakeObj.style.marginTop=snakeObj.style.marginTop+'10px';
-					setInterval(timerDown);
-					clearInterval(timerLeft);
-					clearInterval(timerUp);
-					clearInterval(timerRight);
-					console.log('向下走')
-					
+					snakeObj.style.height=snakeW+'px';
+					IntervalDown=setInterval(timerDown,1000);
+					clearInterval(IntervalRight);
+					clearInterval(IntervalLeft);
+					clearInterval(IntervalUp);
+					console.log('向下走');
 				}
 				function turnLeft(){
-					snakeObj.style.width='20px';
+					snakeObj.style.width=snakeW+'px';
 					snakeObj.style.height='10px';
-					setInterval(timerLeft);
-					clearInterval(timerDown);
-					clearInterval(timerUp);
-					clearInterval(timerRight);
+					IntervalLeft=setInterval(timerLeft,1000);
+					clearInterval(IntervalRight);
+					clearInterval(IntervalUp);
+					clearInterval(IntervalDown);
 					console.log('向左走');
 					
 				}
 				function turnRight(){
-					snakeObj.style.width='20px';
+					snakeObj.style.width=snakeW+'px';
 					snakeObj.style.height='10px';
-					setInterval(timerRight);
-					clearInterval(timerLeft);
-					clearInterval(timerUp);
-					clearInterval(timerDown);
+					IntervalRight=setInterval(timerRight,1000);
+					clearInterval(IntervalLeft);
+					clearInterval(IntervalUp);
+					clearInterval(IntervalDown);
 					console.log('向右走')
 					
 				}
 				function turnUp(){
 					snakeObj.style.width='10px';
-					snakeObj.style.height='20px';
-					snakeObj.style.marginTop=snakeObj.style.marginTop-'10px';
-					setInterval(timerUp);
-					clearInterval(timerLeft);
-					clearInterval(timerDown);
-					clearInterval(timerRight);
-					console.log('向右走');
+					snakeObj.style.height=snakeW+'px';
+					IntervalUp=setInterval(timerUp,1000);
+					clearInterval(IntervalDown);
+					clearInterval(IntervalLeft);
+					clearInterval(IntervalRight);
+					console.log('向上走');
 				}
 		</script>
 	</body>
