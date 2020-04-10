@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="content-type" content="text/html" />
+		<meta name="keywords" content="统计一个字符串出现最多的字母和出现的次数" />
+		<meta name="description" content="统计一个字符串出现最多的字母和出现的次数" />
+		<meta name="author" content="KG" />
+		<link rel="shortcut icon" href="favicon.icon" />
+		<title>census</title>
+	</head>
+	<style>
+		.census{
+			width: 400px;
+			margin: 400px auto;
+			box-shadow: 0px 0px 15px 0px #000;
+			padding: 30px;
+			border-radius: 8px;
+		}
+	</style>
+	<body>
+		<!-- 统计一个字符串出现最多的字母和出现的次数 -->
+		<div class="census">
+			<input name="inputText" type="text" value="" placeholder="请输入一个字母字符串" />
+			<input type="button" value="统计" onclick="resultFnc()" />
+			<h4>信息展示：</h4>
+			<div class="showMsg"></div>
+		</div>
+		<script>
+			// 获取input框输入的值
+			function getInputValue(){
+				var txt=document.getElementsByName('inputText');
+				var targetVal=txt[0].value;
+				return targetVal;
+			}
+			// 对字符串进行统计
+			function censusStr(){
+				var targetStr=getInputValue();
+				var strArr=[];
+				strArr=targetStr.split('');
+				// bubbleSort(strArr);
+				return strArr;
+			}
+			
+			// 对所得的数组进行去重处理，这里需要注意，数组中的indexOf方法
+			//去重思路：设置一个新数组，对这个数组使用indexOf查找字符串，第一次出现的字符串，放到数组的后面；
+			function duplicateRemoval(){
+				let targetArr=censusStr();
+				let duplicateRemovalArr=[];
+				// 去重
+				for(var i=0;i<targetArr.length;i++){
+					if(duplicateRemovalArr.indexOf(targetArr[i])==-1){
+						duplicateRemovalArr.push(targetArr[i]);
+					}
+				}
+				return duplicateRemovalArr;
+			}
+			
+			//统计重复的字符串
+			function censusMaxNum(){
+				let duplicateRemovalArr=duplicateRemoval();
+				let targetArr=censusStr();
+				let countArr=[];
+				for(var i=0;i<duplicateRemovalArr.length;i++){
+					let count=0;
+					for(var j=0;j<targetArr.length;j++){
+						 if(duplicateRemovalArr[i]===targetArr[j]){
+							 count++;
+						 }
+					}
+					countArr.push(count)
+				}
+				return countArr;
+			}
+			
+			// 找出字符串中，最大的值
+			function findMax(){
+				let censusMaxNumArr=censusMaxNum();
+				for(var i=0;i<censusMaxNumArr.length;i++){
+					for(var j=0;j<censusMaxNumArr.length-1-i;j++){
+						if(censusMaxNumArr[j]>censusMaxNumArr[j+1]){
+							let temp=censusMaxNumArr[j];
+							censusMaxNumArr[j]=censusMaxNumArr[j+1];
+							censusMaxNumArr[j+1]=temp;
+						}
+					}
+				}
+				return censusMaxNumArr[censusMaxNumArr.length-1]
+			}
+			
+			
+			
+			// 最终结果
+			function resultFnc(){
+				let duplicateRemovalArr=duplicateRemoval();
+				let censusMaxNumArr=censusMaxNum();
+				let maxNumber=findMax();
+				let showMsg=document.getElementsByClassName('showMsg')[0];
+				
+				// 找出最大值对应的索引
+				let maxNumberIndex=censusMaxNumArr.indexOf(maxNumber);
+				
+				let _html='';//计算数据展示
+				
+				_html='<p>'+'该字符串出现最多的字母是：'+duplicateRemovalArr[maxNumberIndex]+',该字符串出现'+duplicateRemovalArr[maxNumberIndex]+'的次数:'+censusMaxNumArr[maxNumberIndex]+'</p>';
+				
+				
+				
+				// 全部罗列出来
+				// 
+				// for(var i=0;i<duplicateRemovalArr.length;i++){
+				// 	// 该字符串出现最多的字母是：mm
+				// 	_html+='<p>'+'该字符串出现字母和个数是：'+duplicateRemovalArr[i]+':'+censusMaxNumArr[i]+'</p>';
+				// }
+				
+				showMsg.innerHTML=_html;
+			}
+			
+			// 冒泡排序
+			// 设计思路，相邻的两个数互相比较，大的往后移动，继续和后面的数比较，最后，一轮比较的次数是，arr.length-1次；每次比较完一轮，都会把这一轮最大的数放在数组的最后一位
+			// 所以就有了arr.length-1-i;
+			// function bubbleSort(arr){
+			// 	for(var i=0;i<arr.length;i++){   //冒泡排序
+			// 		for(var j=0;j<arr.length-1-i;j++){
+			// 			// 前后两个值作比较
+			// 			if(arr[j]-arr[j+1]>0){
+			// 				let smallerNum=arr[j+1];
+			// 				arr[j+1]=arr[j];
+			// 				arr[j]=smallerNum;
+			// 			}
+			// 		}
+			// 	}
+			// 	return arr;
+			// }
+		</script>
+	</body>
+</html>

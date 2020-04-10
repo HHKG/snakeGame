@@ -91,10 +91,10 @@
 						makeRect();
 					}
 					// 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
-					if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
-						snakeW+=20
-						conObj[0].removeChild(conObj[0].lastElementChild);
-					}
+					// if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
+					// 	snakeW+=20
+					// 	conObj[0].removeChild(conObj[0].lastElementChild);
+					// }
 					ml+=10;
 					snakeObj.style.marginLeft=ml+'px';
 					if(ml>=480){
@@ -105,17 +105,17 @@
 				
 				// 向左走定时器
 				var timerLeft=function(){
-					let lastElement=conObj[0].lastElementChild;
-					if(!lastElement.id){
-						console.log('小方块即将出现')
-						// 出现小方块
-						makeRect();
-					}
-					// 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
-					if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
-						snakeW+=20
-						conObj[0].removeChild(conObj[0].lastElementChild);
-					}
+					// let lastElement=conObj[0].lastElementChild;
+					// if(!lastElement.id){
+					// 	console.log('小方块即将出现')
+					// 	// 出现小方块
+					// 	makeRect();
+					// }
+					// // 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
+					// if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
+					// 	snakeW+=20
+					// 	conObj[0].removeChild(conObj[0].lastElementChild);
+					// }
 					ml-=10
 					snakeObj.style.marginLeft=ml+'px';
 					if(1>=ml){
@@ -126,17 +126,17 @@
 				
 				// 向上走定时器
 				var timerUp=function(){
-					let lastElement=conObj[0].lastElementChild;
-					if(!lastElement.id){
-						console.log('小方块即将出现')
-						// 出现小方块
-						makeRect();
-					}
-					// 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
-					if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
-						snakeW+=20
-						conObj[0].removeChild(conObj[0].lastElementChild);
-					}
+					// let lastElement=conObj[0].lastElementChild;
+					// if(!lastElement.id){
+					// 	console.log('小方块即将出现')
+					// 	// 出现小方块
+					// 	makeRect();
+					// }
+					// // 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
+					// if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
+					// 	snakeW+=20
+					// 	conObj[0].removeChild(conObj[0].lastElementChild);
+					// }
 					mt-=10;
 					snakeObj.style.marginTop=mt+'px';
 					if(1>=mt){
@@ -147,17 +147,17 @@
 				
 				// 向下走定时器
 				var timerDown=function(){
-					let lastElement=conObj[0].lastElementChild;
-					if(!lastElement.id){
-						console.log('小方块即将出现')
-						// 出现小方块
-						makeRect();
-					}
-					// 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
-					if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
-						snakeW+=20
-						conObj[0].removeChild(conObj[0].lastElementChild);
-					}
+					// let lastElement=conObj[0].lastElementChild;
+					// if(!lastElement.id){
+					// 	console.log('小方块即将出现')
+					// 	// 出现小方块
+					// 	makeRect();
+					// }
+					// // 如果移动的snake的坐标等于出现的小方块的坐标，则，把小方块的宽加到sanke上面；
+					// if(parseInt(mt-mtop)<=5&&parseInt(ml-mleft)<=5){
+					// 	snakeW+=20
+					// 	conObj[0].removeChild(conObj[0].lastElementChild);
+					// }
 					
 					mt+=10;
 					snakeObj.style.marginTop=mt+'px';
