@@ -5352,10 +5352,10 @@ body {
 	font-size: 11px;
 	user-select: none;
 	-webkit-user-select: none;
-	    background-image: url("C:/Users/88000051/Pictures/naduo.jfif");
+	   /* background-image: url("C:/Users/88000051/Pictures/naduo.jfif");
 	    background-size: 100% 100%;
 	    opacity: 0.8;
-	    background-repeat: no-repeat;
+	    background-repeat: no-repeat; */
 }
 
 body.web {

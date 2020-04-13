@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html"/>
+		<meta name="keywords" content="二分查找算法" />
+		<meta name="description" content="二分查找算法" />
+		<meta name="author" content="KG" />
+		<meta charset="utf-8">
+		<title>二分查找算法</title>
+	</head>
+	<body>
+		<!-- 二分查找算法是一种高效的搜索算法，是一种可以在有序数组中搜索到特定的元素的算法 -->
+		<!-- 二分查找法一般有俩方法，使用递归或不使用递归 -->
+		<script>
+			// 进行二分查找法必须是排序好的数组
+			var data=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+			var targetNum=8;
+			let start=0,
+			end=data.length-1,//因为是计算index值，数组中最大的index是数组长度减1
+			midIndex;
+			function findNum(start,end,targetNum){
+				midIndex=Math.ceil((start+end)/2)
+				
+				// 获取数组的中间值
+				if(targetNum==data[midIndex]){
+					return '查找到的目标是：'+data[midIndex]+','+'该目标在数组中的索引值是：'+midIndex;
+				}else if(targetNum>data[midIndex]){//此条件成立的话，说明，查找目标在数组的后半部分，所以应该改变查找的开始位置start的值
+					start=midIndex+1;//因为targetNum不等于数组中间位置的值，所以可以把开始位置往比中间位置往后移动一位，查找的结束位置不变；
+					return findNum(start,end,targetNum);//继续缩小范围搜索
+				}else if(targetNum<data[midIndex]){//此条件成立的话，说明，查找目标在筛选范围的前半部分，应该改变查找位置的end的值
+					end=midIndex-1; //因为targetNum不等于搜索范围的中间值，所以把搜索范围的结束位置往前移动一位，查找的开始位置不变；
+					return findNum(start,end,targetNum);
+				}else{
+					return '该目标在数组内查找不到！请重新输入';
+				}
+			} 
+			console.log(findNum(start,end,targetNum))
+		</script>
+	</body>
+</html>
